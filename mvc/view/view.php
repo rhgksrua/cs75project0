@@ -3,29 +3,24 @@
 <html leng='en'>
 <head>
     <title>Three Aces</title>
+    <style>
+        span {
+            margin: 10px;
+        }
+
+    </style>
 </head>
 <body>
 <?
 
-    print "<div>";
-    $navNum = 0;
-    foreach ($navList as $cat) {
-        print "<a href='/threeaces.php?page=$navNum'>$cat</a>";
-        $navNum += 1;
-    }
-    print "</div>";    
+$i = 0;
+foreach ($categoryList as $category) {
+    $i++;
+    print "<a href='/threeaces.php?page={$i}'><span>{$category}</span></a>";
+}
+print "<br>";
 
-    print "current page" . ": " . $navList[$currentPage];
-    foreach ($menu as $cat) {
-        print "<li>";
-        print $cat;
-        print "</li>";
-    }
-    foreach ($subMenu as $item) {
-        print "<li>";
-        print $item;
-        print "</li>";
-    }
+showItems($xml, $menuPage);
 ?>
     
 </body>

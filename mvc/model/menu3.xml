@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<menu>
+    <category type="Pizzas">
+        <item name="Tomato &amp; Cheese">
+            <price choice="small">5.50</price>
+            <price choice="large">9.75</price>
+        </item>
+        <item name="Onions">
+            <price choice="small">6.85</price>
+            <price choice="large">10.85</price>
+        </item>
+        <item name="Peppers">
+            <price choice="small">6.85</price>
+            <price choice="large">10.85</price>
+        </item>
+    </category>
+    <category type="Speciality Pizzas">
+        <item name="Three Aces Special">
+            <price choice="small">9.80</price>
+            <price choice="large">15.80</price>
+        </item>
+        <item name="Mediterranean">
+            <price choice="small">9.80</price>
+            <price choice="large">15.80</price>
+        </item>
+        <item name="Vegetarian">
+            <price choice="small">9.80</price>
+            <price choice="large">15.80</price>
+        </item>
+    </category>
+    <category type="Special Dinners">
+        <item name="Chicken Wing Dinner">
+            <price choice="">7.25</price>
+        </item>
+        <item name="Gyro Plate">
+            <price choice="">7.25</price>
+        </item>
+        <item name="Chicken Finger Plate">
+            <price choice="">7.25</price>
+        </item>
+    </category>
+</menu>
+
