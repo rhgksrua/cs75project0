@@ -7,21 +7,22 @@
         span {
             margin: 10px;
         }
-
     </style>
 </head>
 <body>
 <?
-
-$i = 0;
-foreach ($categoryList as $category) {
-    $i++;
-    print "<a href='/threeaces.php?page={$i}'><span>{$category}</span></a>";
+foreach ($categoryList as $i => $category) {
+?>
+    <a href='/threeaces.php?page=<?= $i + 1 ?>'><span><?= $category ?></span></a>
+<?
 }
-print "<br>";
-
+?>
+    <br>
+    <p>Total: <?= $total ?></p>
+    <a href="threeaces.php?cart=true">Go to cart</a>
+<?
 showItems($xml, $menuPage);
 ?>
-    
+<a href="threeaces.php?reset=true">RESET</a>
 </body>
 </html>
