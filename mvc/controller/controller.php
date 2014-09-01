@@ -4,7 +4,6 @@ session_start();
 include(M. "model.php");
 include("helper.php");
 
-
 if (isset($_GET["checkout"])) {
     include(V. "checkout.php");
     exit;
@@ -81,6 +80,7 @@ if (isset($_POST["sel"])) {
 
 $itemList = getItems($xml, $menuPage);
 $total = number_format(getCartTotal($xml), 2, '.', '');
+
 include(V. "view.php");
 
 ?>
