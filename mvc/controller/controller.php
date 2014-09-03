@@ -12,7 +12,6 @@ require("helper.php");
 $page = 0;
 if (empty($_SESSION["cart"])) {
     // php 5.3 does not support shorthand [] for array().
-    print "cart is empty";
     $_SESSION["cart"] = array();
 }
 
@@ -53,9 +52,6 @@ if (isset($_GET["remove"]) && $_GET["remove"] == True) {
 
 // update quantity or remove item from cart
 if (isset($_POST["update"])) {
-    print "<p>update cart</p>";
-
-
     foreach($_POST["update"] as $key => $item) {
         if (is_numeric($item["quantity"])) {
 
@@ -70,10 +66,6 @@ if (isset($_POST["update"])) {
     
 
 }
-
-//print_r($_POST["cart"]);
-//print "<br>";
-print_r($_SESSION["cart"]);
 
 // routing logic 
 if (isset($_GET["go"])) {
