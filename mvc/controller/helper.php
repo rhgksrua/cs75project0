@@ -4,20 +4,30 @@ function showCart($xml) {
     if (isset($_SESSION["cart"]) && count($_SESSION["cart"]) > 0) {
 
 ?>
-<form action="threeaces.php?cart=true" method="post">
+<form action="threeaces.php?go=cart" method="post">
     <table>
 <?
         foreach ($_SESSION["cart"] as $i => $item) {
 ?>
             <tr>
-                <td><?= $item["cat"] ?></td>
-                <td><?= $item["item"] ?></td>
-                <td><?= $item["price"] ?></td>
-                <input type='hidden' name="update[<?= $i ?>][cat]" value="<?= $item['cat'] ?>">
-                <input type='hidden' name="update[<?= $i ?>][item]" value="<?= $item['item'] ?>">
-                <input type='hidden' name="update[<?= $i ?>][price]" value="<?= $item['price'] ?>">
-                <td><input type="text" name="update[<?= $i ?>][quantity]" value='<?= $item["number"] ?>'></td>
-                <td><a href="threeaces.php?cart=true&remove=true&id=<?= $i ?>">remove</a></td>
+                <td><?= $item["type"] ?></td>
+                <td><?= $item["name"] ?></td>
+                <td><?= $item["choice"] ?></td>
+<?
+            $ty = $item['type'];
+            $na = $item['name'];
+            $ch = $item['choice'];
+            $pr = $xml->xpath("/menu/category[@type='$ty']/item[@name='$na']/price[@choice='$ch']");
+
+
+?>
+                <td><?= $pr[0] ?></td>
+                
+                <input type='hidden' name="update[<?= $i ?>][type]" value="<?= $item['type'] ?>">
+                <input type='hidden' name="update[<?= $i ?>][name]" value="<?= $item['name'] ?>">
+                <input type='hidden' name="update[<?= $i ?>][choice]" value="<?= $item['choice'] ?>">
+                <td><input type="text" name="update[<?= $i ?>][quantity]" value='<?= $item["quantity"] ?>'></td>
+                <td><a href="threeaces.php?go=cart&remove=True&id=<?= $i ?>">remove</a></td>
             </tr>
 
 <?
@@ -27,12 +37,12 @@ function showCart($xml) {
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
                 <td><input type="submit" value="Update"></td>
             </tr>
     </table>
-
 </form>
-<div><a href="threeaces.php?checkout=true">Check Out</a></div>
+<div><a href="threeaces.php?go=checkout">Check Out</a></div>
 <?
     } else {
 ?>
@@ -46,7 +56,7 @@ function showCart($xml) {
 <?
 
 function getCartTotal($xml) {
-    if (!isset($_SESSION["cart"])) {
+    if (!isset($_SESSION["cart"]) || empty($_SESSION["cart"])) {
         return 0;
     }
     $total = 0.00;
@@ -56,65 +66,6 @@ function getCartTotal($xml) {
         $total += floatval($price[0]) * $item["quantity"];
     }
     return $total;
-}
-?>
-
-<?php
-function getItems($xml, $page) {
-    $xp = "/menu/category[{$page}]/item/@name";
-    $items = $xml->xpath($xp); 
-    $itemList = array();
-    foreach ($items as $item) {
-       $itemList[] = $item;
-    }
-    return $items;
-}
-?>
-
-
-
-<?
-function showItems($xml, $page) {
-    $xp = "/menu/category[{$page}]/item";
-    $items = $xml->xpath($xp);
-    $heading = $xml->xpath("/menu/category[{$page}]/@type");
-    $category = $heading[0];
-    $i = 0;
-?>
-    <h1><?= $category ?></h1>
-<?
-    foreach ($items as $item) {
-        $itemName = $item->attributes()->name;
-?>
-    <form action="threeaces.php" method="post">
-    <p> <?= $itemName ?></p>
-    <table>
-<?
-        foreach ($item->price as $price) {
-?>
-
-<?
-            $choice = $price->attributes()->choice;
-?>
-            <?= $choice ?>
-                
-            <? print "$ " . $price; ?>
-            <input type='text' name="sel[<?= $i ?>][number]" >
-            <input type='hidden' name="sel[<?= $i ?>][cat]" value="<?= $category ?>">
-            <input type='hidden' name="sel[<?= $i ?>][item]" value="<?= $itemName ?>">
-            <input type='hidden' name="sel[<?= $i ?>][price]" value="<?= $choice ?>">
-            <br>
-            <? $i++; ?>
-<? 
-        } 
-?>
-    </p>
-<?
-    }
-?>
-    <input type='submit' value='add to cart'>
-</form>
-<?
 }
 ?>
 
