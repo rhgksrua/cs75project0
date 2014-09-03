@@ -18,16 +18,17 @@ if (empty($_SESSION["cart"])) {
 // add to cart
 if (isset($_POST["cart"])) {
     $update = $_POST["cart"];
-    foreach ($update as $i => $item) {
+    foreach ($update as $item) {
         if (!empty($item["quantity"]) &&
             is_numeric($item["quantity"])) {
             $addToCart = True;
             // check if item exists in cart
-            foreach($_SESSION["cart"] as $itemInCart) {
+            foreach($_SESSION["cart"] as $i => $itemInCart) {
                 if ($itemInCart["type"] == $item["type"] &&
                     $itemInCart["name"] == $item["name"] &&
                     $itemInCart["choice"] == $item["choice"]
                     ) {
+                    print_r($_SESSION["cart"]);
                     $_SESSION["cart"][$i]["quantity"] += $item["quantity"];
                     $addToCart = False;
                     print "<p>already exists. updating quantity</p>";
@@ -75,6 +76,10 @@ if (isset($_GET["go"])) {
             session_destroy();
             break;
         case "cart":
+            
+            usort($_SESSION["cart"], "cmpChoice");
+            usort($_SESSION["cart"], "cmpName");
+            usort($_SESSION["cart"], "cmpType");
             include(M . "model.php");
             include(V . "cart.php");
             exit;

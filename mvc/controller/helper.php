@@ -10,9 +10,9 @@ function showCart($xml) {
         foreach ($_SESSION["cart"] as $i => $item) {
 ?>
             <tr>
-                <td><?= $item["type"] ?></td>
-                <td><?= $item["name"] ?></td>
-                <td><?= $item["choice"] ?></td>
+                <td class='type'><?= $item["type"] ?></td>
+                <td class='name'><?= $item["name"] ?></td>
+                <td class='choice'><?= $item["choice"] ?></td>
 <?
             $ty = $item['type'];
             $na = $item['name'];
@@ -21,12 +21,12 @@ function showCart($xml) {
 
 
 ?>
-                <td><?= $pr[0] ?></td>
+                <td class='price'><?= $pr[0] ?></td>
                 
                 <input type='hidden' name="update[<?= $i ?>][type]" value="<?= $item['type'] ?>">
                 <input type='hidden' name="update[<?= $i ?>][name]" value="<?= $item['name'] ?>">
                 <input type='hidden' name="update[<?= $i ?>][choice]" value="<?= $item['choice'] ?>">
-                <td><input type="text" name="update[<?= $i ?>][quantity]" value='<?= $item["quantity"] ?>'></td>
+                <td><input type="text" maxlength='4' size='6' name="update[<?= $i ?>][quantity]" value='<?= $item["quantity"] ?>'></td>
                 <td><a href="threeaces.php?go=cart&remove=True&id=<?= $i ?>">remove</a></td>
             </tr>
 
@@ -38,7 +38,7 @@ function showCart($xml) {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><input type="submit" value="Update"></td>
+                <td class='update'><input type="submit" value="Update"></td>
             </tr>
     </table>
 </form>
@@ -69,3 +69,38 @@ function getCartTotal($xml) {
 }
 ?>
 
+<?php
+
+function sortCart() {
+    $tempArr = array();
+    foreach($_SESSION["cart"] as $itemKey => $item) {
+        $tempArr[$itemKey] = $item["choice"];
+    }
+    asort($tempArr);
+    $tempArr = array_reverse($tempArr, $preserve_keys = true);
+    print_r($tempArr);
+
+}
+
+function cmpChoice($a, $b) {
+    if ($a["choice"] == $b["choice"]) {
+        return 0;
+    }
+    return ($a["choice"] > $b["choice"]) ? -1 : 1;
+}
+function cmpName($a, $b) {
+    if ($a["name"] == $b["name"]) {
+        return 0;
+    }
+    return ($a["name"] < $b["name"]) ? -1 : 1;
+}
+function cmpType($a, $b) {
+    if ($a["type"] == $b["type"]) {
+        return 0;
+    }
+    return ($a["type"] < $b["type"]) ? -1 : 1;
+}
+
+
+
+?>

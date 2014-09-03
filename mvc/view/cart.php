@@ -3,9 +3,38 @@
 <head>
     <title>Three Aces</title>
     <style>
-        span {
+        span.nav {
             margin: 10px;
         }
+        span.type {
+            color: red;
+            font-size: 1.2em;
+        }
+        body {
+            margin-left: 3%;
+        }
+        th {
+            text-align: left;
+        }
+        th, td {
+        }
+        .type {
+            width: 20%;
+        }
+        .name {
+            width: 40%;
+        }
+        .choice {
+            width: 10%;
+        }
+        .price {
+            width: 10%;
+        }
+        .update {
+            background-color: none;
+        }
+
+
     </style>
 </head>
 <body>
