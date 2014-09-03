@@ -51,15 +51,15 @@ function getCartTotal($xml) {
     }
     $total = 0.00;
     foreach ($_SESSION["cart"] as $item) {
-        $xp = "/menu/category[@type='{$item['cat']}']/item[@name='{$item['item']}']/price[@choice='{$item['price']}']";
+        $xp = "/menu/category[@type='{$item['type']}']/item[@name='{$item['name']}']/price[@choice='{$item['choice']}']";
         $price = $xml->xpath($xp);
-        $total += floatval($price[0]) * $item["number"];
+        $total += floatval($price[0]) * $item["quantity"];
     }
     return $total;
 }
 ?>
 
-<?
+<?php
 function getItems($xml, $page) {
     $xp = "/menu/category[{$page}]/item/@name";
     $items = $xml->xpath($xp); 
@@ -82,12 +82,9 @@ function showItems($xml, $page) {
     $i = 0;
 ?>
     <h1><?= $category ?></h1>
-
-
 <?
     foreach ($items as $item) {
         $itemName = $item->attributes()->name;
-        
 ?>
     <form action="threeaces.php" method="post">
     <p> <?= $itemName ?></p>
