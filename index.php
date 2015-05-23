@@ -16,13 +16,9 @@
                     print " - " . $type->tname . ": " . $type->price;
                 }
                 print "</li>";
-                
             }
-
-
             print "</ul>";
             print "<br>";
-
         }
     ?>
 
